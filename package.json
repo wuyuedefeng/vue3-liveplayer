@@ -1,0 +1,26 @@
+{
+  "name": "vue3-liveplayer",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "scp -r ./dist/* root@47.100.235.38:/mnt/www/liveplayer"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
+    "axios": "^0.26.1",
+    "goldvideo-player": "^1.0.2",
+    "hls.js": "^1.1.5",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.14"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.0",
+    "sass": "^1.49.10",
+    "vite": "^2.9.0",
+    "vite-plugin-cross-origin-isolation": "^0.1.6"
+  }
+}
