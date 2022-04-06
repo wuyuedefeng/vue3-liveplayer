@@ -1,6 +1,6 @@
 <template>
   <easy-player v-if="isInitFinished" ref="playerRef" class="player" v-bind="videoAttrs"></easy-player>
-  <button v-if="isInitFinished" @click="destroyVideoPlayer">销毁播放器</button>
+  <!--<button v-if="isInitFinished" @click="destroyVideoPlayer">销毁播放器</button>-->
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default defineComponent({
         muted: 'true',
         live: 'true',
         'auto-play': 'true',
-        aspect: '5:3',
+        //aspect: '5:3',
         'easy-stretch': 'false',
         'video-url': url,
         //resolution: 'yh,fhd,hd,sd',
@@ -48,6 +48,8 @@ export default defineComponent({
       state.isInitFinished = true
 
       nextTick(() => {
+        const img = state.playerRef.querySelector('.easy-player-loading img')
+        if (img) { img.style = 'display: none' }
         //console.log('instance', state.playerRef.getVueInstance())
         const reloadStream = (type) => {
           if (type === 'ended') return state.playerRef.getVueInstance()?.replay()
@@ -80,4 +82,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.player {
+  ::v-deep('.easy-player-loading logo') {
+    display: none;
+  }
+}
 </style>

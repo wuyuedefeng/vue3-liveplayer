@@ -26,11 +26,14 @@ export default defineComponent({
       //https://github.com/tsingsee/EasyPlayer.js#%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7
       videoAttrs: {
         'video-url': url,
+        Height: true,
         ...videoAttrs,
       },
     })
 
     onMounted(async () => {
+      const kibs = document.querySelector('.iconqingxiLOGO')?.nextSibling
+      if (kibs) { kibs.style = 'right: 50px' }
       await skdLoaderPromise
       await parseM3u8Url(state.videoAttrs['video-url']).then(playlistUrl => {
         state.videoAttrs['video-url'] = playlistUrl
@@ -38,7 +41,7 @@ export default defineComponent({
       state.isInitFinished = true
       state.player = new WasmPlayer(null, 'player', (e) => {
         console.log('callbackfun', e)
-      })
+      }, state.videoAttrs)
       // 调用播放
       state.player.play(state.videoAttrs['video-url'], 1)
     })
@@ -49,12 +52,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.player {
-  width: 100%;
-  height: 100%;
-
+#player {
   ::v-deep(.iconqingxiLOGO) {
-    display: none;
+    visibility: hidden;
   }
 }
 </style>

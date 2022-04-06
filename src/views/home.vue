@@ -17,10 +17,10 @@ export default defineComponent({
   },
   setup (props, ctx) {
     const route = useRoute()
-    const { width = '600px', height = '400px' } = route.query
+    const { width = '600px', height = '400px', componentVersion = 'LivePlayerV1' } = route.query
     const state = reactive({
       playStyle: { width, height },
-      componentVersion: 'LivePlayerV1',
+      componentVersion,
     })
     return { ...toRefs(state) }
   },
