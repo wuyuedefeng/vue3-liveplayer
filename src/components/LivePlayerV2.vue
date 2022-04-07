@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, defineComponent, onMounted, markRaw } from 'vue'
+import { reactive, toRefs, defineComponent, onMounted, markRaw, onUnmounted } from 'vue'
 import { parseM3u8Url } from '@/utils/libs/m3u8Util'
 import { loadScript } from '@/utils/libs/resourceLoader'
 import { useRoute } from 'vue-router'
@@ -19,6 +19,13 @@ export default defineComponent({
     const { version, url, width, height, ...videoAttrs } = route.query
 
     let player = null
+    const destroyVideoPlayer = () => {
+      if (player) {
+        player.stop()
+        player.destroy()
+        player = null
+      }
+    }
 
     const state = reactive({
       isInitFinished: false,
@@ -44,6 +51,10 @@ export default defineComponent({
       }, state.videoAttrs)
       // 调用播放
       state.player.play(state.videoAttrs['video-url'], 1)
+    })
+
+    onUnmounted(() => {
+      destroyVideoPlayer()
     })
 
     return { ...toRefs(state) }
